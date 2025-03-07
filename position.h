@@ -13,6 +13,8 @@
 
 #include <iostream>
 #include <cmath>
+#include "velocity.h"
+#include "acceleration.h"
 
 class TestPosition;
 class Acceleration;
@@ -38,8 +40,8 @@ class Position
    double getMetersY()       const { return y;                    }
    double getPixelsX()       const { return x / metersFromPixels; }
    double getPixelsY()       const { return y / metersFromPixels; }
-   double getDx()          const{ return dx;}
-   double getDy()          const{return dy;}
+   double getDx()            const{ return dx;}
+   double getDy()            const{return dy;}
    
    void setDx(double dx) {this -> dx = dx;}
    void setDy(double dy) {this -> dy = dy;}
@@ -56,6 +58,8 @@ class Position
    void addMetersY(double dyMeters)      { setMetersY(getMetersY() + dyMeters);     }
    void addPixelsX(double dxPixels)      { setPixelsX(getPixelsX() + dxPixels);     }
    void addPixelsY(double dyPixels)      { setPixelsY(getPixelsY() + dyPixels);     }
+   
+   void add(const Acceleration &a, const Velocity &v, double t);
 
    // deal with the ratio of meters to pixels
    void setZoom(double metersFromPixels)

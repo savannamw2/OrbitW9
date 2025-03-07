@@ -4,6 +4,7 @@
 //void virtual move(float time) {}
 //void virtual input(Interface& ui) {}
 #include "satellite.h"
+#include "acceleration.h"
 
 
 // Move Method
@@ -15,9 +16,25 @@ void Satellite::move(float time)
    //   earth radius
    double r = 6378000;
    
-   double h = sqrt((pDemo -> ptGPS.getMetersX() * pDemo -> ptGPS.getMetersX()) + (pDemo -> ptGPS.getMetersY() * pDemo -> ptGPS.getMetersY())) - r;
+   // height above hearth
+   double h = sqrt((pos.getMetersX() * pos.getMetersX())
+                   + (pos.getMetersY() * pos.getMetersY())) - r;
 
+   // gravity at height
+   double gh = g * ( r / (r + h)) * (r / (r + h));
    
+   // direction of pull
+   double d = atan2(0 - pos.getMetersX(), 0 - pos.getMetersY());
    
+   // velocity
+   double ddx = g * sin(d);
+   double ddy = g * cos(d);
+   Acceleration accel(ddx, ddy);
+   
+   // update velocity
+   velocity.add(accel, time);
+   
+   // update point
+   pos.add(accel, velocity, time);
 }
 

@@ -11,6 +11,8 @@
 #include <cmath>
 #include "velocity.h"
 #include "position.h"
+#include "uiDraw.h"
+#include "uiInteract.h"
 
 /****************
  * Satellite Parent Class
@@ -24,17 +26,18 @@ public:
    Satellite(Satellite &rhs);
    
    float getRadius() {return radius;}
-   bool isDead() {return true;}
+   bool isDead() {return dead;}
    Position& getPosition() { return pos;}
-//   void kill()
-   void virtual draw(ogstream& gout) const {}
-//   void virtual destroy(std::vector <Satellite> satellites) {}
+//   void kill() {}
+   virtual void draw(ogstream& gout) = 0;
+   
+//   void virtual destroy(std::vector <Satellite>& satellites) {}
    void virtual move(float time);
-//   void virtual input(Interface& ui) {}
+//   void virtual input(Interface* ui) {}
    
 private:
    Velocity velocity;
-   Position pos; 
+   Position pos;
    double angularVelocity;
    bool dead;
    float radius;
