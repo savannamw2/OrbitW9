@@ -13,6 +13,8 @@
 #include "position.h"
 #include "uiDraw.h"
 #include "uiInteract.h"
+#include "testSatellite.h"
+
 
 /****************
  * Satellite Parent Class
@@ -20,6 +22,7 @@
 class Satellite
 {
 public:
+   friend TestSatellite
    
    Satellite(const Position& pos, const Velocity& velocity, const Angle& angle, double angularVelocity, double radius);
    Satellite(const Position& pos, const Velocity& velocity);
