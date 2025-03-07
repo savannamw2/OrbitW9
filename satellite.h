@@ -18,22 +18,19 @@
 class Satellite
 {
 public:
-   Satellite();
+   
+   Satellite(const Position& pos, const Velocity& velocity, const Angle& angle, double angularVelocity, double radius);
+   Satellite(const Position& pos, const Velocity& velocity);
+   Satellite(Satellite &rhs);
    
    float getRadius() {return radius;}
-//   bool isDead() {return dead;}
-   pos& getPosition() { return position;}
-   
-   void virtual draw(ogstream& gout) const
-   {}
-   
-   
-   
-   
-   
-   
-   
-   
+   bool isDead() {return true;}
+   Position& getPosition() { return pos;}
+//   void kill()
+   void virtual draw(ogstream& gout) const {}
+//   void virtual destroy(std::vector <Satellite> satellites) {}
+   void virtual move(float time);
+//   void virtual input(Interface& ui) {}
    
 private:
    Velocity velocity;
@@ -41,5 +38,5 @@ private:
    double angularVelocity;
    bool dead;
    float radius;
-   
 }
+;
