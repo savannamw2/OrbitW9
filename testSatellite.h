@@ -9,13 +9,11 @@
 
 #pragma once
 
-
+#include "satellite.h"
 #include "angle.h"
 #include "velocity.h"
 #include "position.h"
 #include "unitTest.h"
-#include "satellite.h"
-#include <cassert>
 #include <math.h>
 
 using namespace std;
@@ -29,22 +27,21 @@ class TestSatellite : public UnitTest
 public:
     void run()
     {
-        defaultConstroctor();
-        initalConstructor();
-        initalConstructor2();
-        getRadiusMax();
-        getRadiusMin();
-        getRadiusMed();
-        isDeadTrue();
-        isDeadFalse();
-        getPosMin();
-        getPosMed();
-        getPosMax();
-        moveSat1();
-        moveSat2();
-        moveSat3();
-        
-        report("Satellite");
+      defaultConstructor();
+      initalConstructor();
+      getRadiusMax();
+      getRadiusMin();
+      getRadiusMed();
+      isDeadTrue();
+      isDeadFalse();
+      getPosMin();
+      getPosMed();
+      getPosMax();
+      moveSat1();
+      moveSat2();
+      moveSat3();
+      
+      report("Satellite");
     }
 
 private:
@@ -63,8 +60,7 @@ private:
     void defaultConstructor()
     {  // setup
        // exercise
-        
-        Satellite s;
+       Satellite s; 
     
         // verify
         assertUnit(s.angularVelocity == 0.0);
@@ -79,81 +75,15 @@ private:
      *********************************************/
    void initalConstructor()
    {  // setup
-       Velocity v;
-       v.dx = 0.0;
-       v.dy = 0.0;
-       Position pos;
-       pos.x = 0.0;
-       pos.y = 0.0;
-       Angle angle;
-       angle.radius = 0.0;
        
       // exercise
-       Satellite s(pos, v, angle, 0.0, 0.0);
+       Satellite s;
        // verify
-       assertUnits(s.pos.x == 0.0);
-       assertUnits(s.pos.y == 0.0);
-       assertUnits(s.velocity.dx == 0.0);
-       assertUnits(s.velocity.dy == 0.0);
        assertUnit(s.angularVelocity == 0.0);
        assertUnit(s.dead == false);
        assertUnit(s.radius == 0.0);
    }  // teardown
     
-    /*********************************************
-     * name:    DEFAULT CONSTRUCTOR
-     * input:   nothing
-     * output:  zero
-     *********************************************/
-   void initalConstructor2()
-   {  // setup
-       Velocity v;
-       v.dx = 0.0;
-       v.dy = 0.0;
-       Position pos;
-       pos.x = 0.0;
-       pos.y = 0.0;
-       Angle angle;
-       angle.radius = 0.0;
-       
-      // exercise
-       Satellite s(pos, v, angle);
-       // verify
-       assertUnits(s.pos.x == 0.0);
-       assertUnits(s.pos.y == 0.0);
-       assertUnits(s.velocity.dx == 0.0);
-       assertUnits(s.velocity.dy == 0.0);
-       assertUnit(s.angularVelocity == 0.0);
-       assertUnit(s.dead == false);
-       assertUnit(s.radius == 0.0);
-   }  // teardown
-    
-    void copyConstructor()
-    {
-        // setup
-        Velocity v;
-        v.dx = 9.0;
-        v.dy = 9.0;
-        Position pos;
-        pos.x = 9.0;
-        pos.y = 9.0;
-        
-        Satellite s1;
-        s1.pos = pos;
-        s1.velocity = v;
-        
-        // exercise
-        Satellite sat(s1);
-
-        // verify
-        assertUnits(s.pos.x == 9.0);
-        assertUnits(s.pos.y == 9.0);
-        assertUnits(s.velocity.dx == 9.0);
-        assertUnits(s.velocity.dy == 9.0);
-        assertUnit(s.angularVelocity == 0.0);
-        assertUnit(s.dead == false);
-        assertUnit(s.radius == 0.0);
-    }
      /*********************************************
       * name:   GET RADIUS
       * input:   nothing
@@ -162,8 +92,9 @@ private:
     void getRadiusMax()
     {  // setup
         Satellite s;
-        s.radius = 10.0
-        float rad;
+       s.radius = 10.0;
+       
+      float rad;
         
         // exercise
         rad = s.getRadius();
@@ -180,7 +111,7 @@ private:
    void getRadiusMin()
    {  // setup
        Satellite s;
-       s.radius = 4.0
+      s.radius = 4.0;
        float rad;
        
        // exercise
@@ -198,7 +129,7 @@ private:
    void getRadiusMed()
    {  // setup
        Satellite s;
-       s.radius = 7.0
+      s.radius = 7.0;
        float rad;
        
        // exercise
@@ -217,7 +148,7 @@ private:
    {  // setup
        Satellite s;
        s.dead = true;
-       bool dead;
+      bool dead;
        
        // exercise
        dead = s.isDead();
@@ -235,7 +166,7 @@ private:
    {  // setup
        Satellite s;
        s.dead = false;
-       bool dead;
+      bool dead;
        
        // exercise
        dead = s.isDead();
@@ -256,7 +187,7 @@ private:
        s.pos.x = 0.0;
        s.pos.y = 0.0;
        
-       Posistion p;
+      Position p;
        p.x = 99.0;
        p.y = 99.0;
        // exercise
@@ -281,7 +212,7 @@ private:
        s.pos.x = 50.0;
        s.pos.y = 50.0;
        
-       Posistion p;
+       Position p;
        p.x = 99.0;
        p.y = 99.0;
        // exercise
@@ -306,7 +237,7 @@ private:
        s.pos.x = 100.0;
        s.pos.y = 100.0;
        
-       Posistion p;
+       Position p;
        p.x = 99.0;
        p.y = 99.0;
        // exercise

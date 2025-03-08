@@ -13,8 +13,9 @@
 #include "angle.h"
 #include "uiDraw.h"
 #include "uiInteract.h"
-#include "testSatellite.h"
+//#include "testSatellite.h"
 
+class TestSatellite;
 
 /****************
  * Satellite Parent Class
@@ -34,7 +35,10 @@ public:
    bool isDead() {return dead;}
    Position& getPosition() { return pos;}
 //   void kill() {}
-   virtual void draw(ogstream& gout);
+   virtual void draw(ogstream& gout)
+   {
+      
+   }
    
 //   void virtual destroy(std::vector <Satellite>& satellites) {}
    void virtual move(float time);

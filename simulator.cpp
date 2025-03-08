@@ -15,8 +15,8 @@
 #include "uiInteract.h" // for INTERFACE
 #include "uiDraw.h"     // for RANDOM and DRAW*
 #include "position.h"      // for POINT
-#include "satellite.h"
-//#include "test.h"
+//#include "satellite.h"
+#include "test.h"
 #include <math.h>
 using namespace std;
 
@@ -107,47 +107,47 @@ void callBack(const Interface* pUI, void* p)
    //
    // perform all the game logic
    //
-   double hoursDay = 24.0;
-   double minutesHour = 60.0;
-   double td = hoursDay * minutesHour;
-   
-   double frameRate = 30.0;
-   double tpf = td / frameRate;
-   
-   double secondsDay =  86400;
-   double rf = -(2 * (M_PI) / frameRate) * (td / secondsDay);
-   
-   double g = 9.80665;
-   double r = 6378000;
-   
-   
-   double h = sqrt((pDemo -> ptGPS.getMetersX() * pDemo -> ptGPS.getMetersX()) + (pDemo -> ptGPS.getMetersY() * pDemo -> ptGPS.getMetersY())) - r;
-   
-   // acceleration
-   double gh = g * ( r / (r + h)) * (r / (r + h));
-   
-   // angle
-   double d = atan2(0 - pDemo -> ptGPS.getMetersX(), 0 - pDemo -> ptGPS.getMetersY());
-  
-   // velocity
-   double ddx = gh * sin(d);
-   double ddy = gh * cos(d);
-   
-   pDemo -> ptGPS.setDx(pDemo -> ptGPS.getDx()  + (ddx * tpf));
-   pDemo -> ptGPS.setDy(pDemo -> ptGPS.getDy()  + (ddy * tpf));
-   
-   // distance
-   pDemo->ptGPS.setMetersX(pDemo -> ptGPS.getMetersX() + ((pDemo -> ptGPS.getDx()  + (ddx * tpf)) * tpf) + (0.5 * gh * (tpf * tpf)));
-   pDemo->ptGPS.setMetersY(pDemo -> ptGPS.getMetersY() + ((pDemo -> ptGPS.getDy()  + (ddy * tpf)) * tpf) + (0.5 * gh * (tpf * tpf)));
-   
-   // rotate the earth
-   pDemo->angleEarth += rf;
-   //   pDemo->angleShip += 0.02;
-   pDemo->phaseStar++;
-   
-   //
-   // draw everything
-   //
+//   double hoursDay = 24.0;
+//   double minutesHour = 60.0;
+//   double td = hoursDay * minutesHour;
+//   
+//   double frameRate = 30.0;
+//   double tpf = td / frameRate;
+//   
+//   double secondsDay =  86400;
+//   double rf = -(2 * (M_PI) / frameRate) * (td / secondsDay);
+//   
+//   double g = 9.80665;
+//   double r = 6378000;
+//   
+//   
+//   double h = sqrt((pDemo -> ptGPS.getMetersX() * pDemo -> ptGPS.getMetersX()) + (pDemo -> ptGPS.getMetersY() * pDemo -> ptGPS.getMetersY())) - r;
+//   
+//   // acceleration
+//   double gh = g * ( r / (r + h)) * (r / (r + h));
+//   
+//   // angle
+//   double d = atan2(0 - pDemo -> ptGPS.getMetersX(), 0 - pDemo -> ptGPS.getMetersY());
+//  
+//   // velocity
+//   double ddx = gh * sin(d);
+//   double ddy = gh * cos(d);
+//   
+//   pDemo -> ptGPS.setDx(pDemo -> ptGPS.getDx()  + (ddx * tpf));
+//   pDemo -> ptGPS.setDy(pDemo -> ptGPS.getDy()  + (ddy * tpf));
+//   
+//   // distance
+//   pDemo->ptGPS.setMetersX(pDemo -> ptGPS.getMetersX() + ((pDemo -> ptGPS.getDx()  + (ddx * tpf)) * tpf) + (0.5 * gh * (tpf * tpf)));
+//   pDemo->ptGPS.setMetersY(pDemo -> ptGPS.getMetersY() + ((pDemo -> ptGPS.getDy()  + (ddy * tpf)) * tpf) + (0.5 * gh * (tpf * tpf)));
+//   
+//   // rotate the earth
+//   pDemo->angleEarth += rf;
+//   //   pDemo->angleShip += 0.02;
+//   pDemo->phaseStar++;
+//   
+//   //
+//   // draw everything
+//   //
    
    Position pt;
    ogstream gout(pt);
@@ -207,7 +207,7 @@ int main(int argc, char** argv)
 #endif // !_WIN32
 {
    
-//   testRunner();
+   testRunner();
    
    // Initialize OpenGL
    Position ptUpperRight;
