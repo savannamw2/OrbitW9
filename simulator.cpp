@@ -15,9 +15,11 @@
 #include "uiInteract.h" // for INTERFACE
 #include "uiDraw.h"     // for RANDOM and DRAW*
 #include "position.h"      // for POINT
-//#include "satellite.h"
+#include "satellite.h"
 #include "test.h"
 #include <math.h>
+#include "GPS.h"
+#include <vector>
 using namespace std;
 
 /*************************************************************************
@@ -30,6 +32,7 @@ class Demo
    Demo(Position ptUpperRight) :
    ptUpperRight(ptUpperRight)
    {
+       satellites.push_back(new GPS(Position(0.0, 42164000), Velocity(-3100, 0.0)));
 //      ptHubble.setPixelsX(ptUpperRight.getPixelsX() * random(-0.5, 0.5));
 //      ptHubble.setPixelsY(ptUpperRight.getPixelsY() * random(-0.5, 0.5));
 //      
@@ -59,6 +62,7 @@ class Demo
       angleShip = 0.0;
       angleEarth = 0.0;
       phaseStar = 0;
+       
    }
    
    Position ptHubble;
@@ -69,11 +73,22 @@ class Demo
    Position ptGPS;
    Position ptStar;
    Position ptUpperRight;
+    
+    double hoursDay = 24.0;
+    double minutesHour = 60.0;
+    double td = hoursDay * minutesHour;
+    
+    double frameRate = 30.0;
+    double tpf = td / frameRate;
    
    unsigned char phaseStar;
    
    double angleShip;
    double angleEarth;
+    vector<Satellite*> satellites;
+    
+
+
 };
 
 /*************************************
@@ -93,6 +108,8 @@ void callBack(const Interface* pUI, void* p)
    // accept input
    //
    
+    //vector<Satellite()> satellites;
+    
    // move by a little
    if (pUI->isUp())
       pDemo->ptShip.addPixelsY(1.0);
@@ -106,17 +123,17 @@ void callBack(const Interface* pUI, void* p)
    
    //
    // perform all the game logic
-   //
-//   double hoursDay = 24.0;
-//   double minutesHour = 60.0;
-//   double td = hoursDay * minutesHour;
-//   
-//   double frameRate = 30.0;
-//   double tpf = td / frameRate;
-//   
-//   double secondsDay =  86400;
-//   double rf = -(2 * (M_PI) / frameRate) * (td / secondsDay);
-//   
+   
+   double hoursDay = 24.0;
+   double minutesHour = 60.0;
+   double td = hoursDay * minutesHour;
+   
+   double frameRate = 30.0;
+   double tpf = td / frameRate;
+   
+   double secondsDay =  86400;
+   double rf = -(2 * (M_PI) / frameRate) * (td / secondsDay);
+   
 //   double g = 9.80665;
 //   double r = 6378000;
 //   
@@ -140,10 +157,10 @@ void callBack(const Interface* pUI, void* p)
 //   pDemo->ptGPS.setMetersX(pDemo -> ptGPS.getMetersX() + ((pDemo -> ptGPS.getDx()  + (ddx * tpf)) * tpf) + (0.5 * gh * (tpf * tpf)));
 //   pDemo->ptGPS.setMetersY(pDemo -> ptGPS.getMetersY() + ((pDemo -> ptGPS.getDy()  + (ddy * tpf)) * tpf) + (0.5 * gh * (tpf * tpf)));
 //   
-//   // rotate the earth
-//   pDemo->angleEarth += rf;
-//   //   pDemo->angleShip += 0.02;
-//   pDemo->phaseStar++;
+   // rotate the earth
+   pDemo->angleEarth += rf;
+   //   pDemo->angleShip += 0.02;
+   pDemo->phaseStar++;
 //   
 //   //
 //   // draw everything
@@ -151,14 +168,23 @@ void callBack(const Interface* pUI, void* p)
    
    Position pt;
    ogstream gout(pt);
-   
+    
+    for(Satellite *sat : pDemo->satellites){
+        sat->move(tpf);
+    }
+    
+    for(Satellite* sat : pDemo->satellites){
+        sat->draw(gout);
+    }
+    
+    
    // draw satellites
 //   gout.drawCrewDragon(pDemo->ptCrewDragon, pDemo->angleShip);
 //   gout.drawHubble    (pDemo->ptHubble,     pDemo->angleShip);
 //   gout.drawSputnik   (pDemo->ptSputnik,    pDemo->angleShip);
 //   gout.drawStarlink  (pDemo->ptStarlink,   pDemo->angleShip);
 //   gout.drawShip      (pDemo->ptShip,       pDemo->angleShip, pUI->isSpace());
-   gout.drawGPS       (pDemo->ptGPS,        pDemo->angleShip);
+//   gout.drawGPS       (pDemo->ptGPS,        pDemo->angleShip);
    
    // draw parts
 //   pt.setPixelsX(pDemo->ptCrewDragon.getPixelsX() + 20);
@@ -175,12 +201,12 @@ void callBack(const Interface* pUI, void* p)
 //   gout.drawStarlinkArray(pt, pDemo->angleShip);   // notice only two parameters are set
    
    // draw fragments
-   pt.setPixelsX(pDemo->ptSputnik.getPixelsX() + 20);
-   pt.setPixelsY(pDemo->ptSputnik.getPixelsY() + 20);
-   gout.drawFragment(pt, pDemo->angleShip);
-   pt.setPixelsX(pDemo->ptShip.getPixelsX() + 20);
-   pt.setPixelsY(pDemo->ptShip.getPixelsY() + 20);
-   gout.drawFragment(pt, pDemo->angleShip);
+//   pt.setPixelsX(pDemo->ptSputnik.getPixelsX() + 20);
+//   pt.setPixelsY(pDemo->ptSputnik.getPixelsY() + 20);
+//   gout.drawFragment(pt, pDemo->angleShip);
+//   pt.setPixelsX(pDemo->ptShip.getPixelsX() + 20);
+//   pt.setPixelsY(pDemo->ptShip.getPixelsY() + 20);
+//   gout.drawFragment(pt, pDemo->angleShip);
    
    // draw a single star
    gout.drawStar(pDemo->ptStar, pDemo->phaseStar);
