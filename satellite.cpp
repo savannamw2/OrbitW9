@@ -7,6 +7,20 @@
 #include "acceleration.h"
 
 
+
+// non-default constructor
+
+Satellite::Satellite(const Position& pos, const Velocity& vel, const Angle& angle, double angularVelocity, double radius)
+    : pos(pos), velocity(vel), angle(angle), angularVelocity(angularVelocity), dead(false), radius(radius) {}
+
+Satellite::Satellite(const Position& pos, const Velocity& vel)
+    : pos(pos), velocity(vel), angle(), angularVelocity(0.0), dead(false), radius(0.0) {}
+
+Satellite::Satellite(const Satellite& rhs)
+    : pos(rhs.pos), velocity(rhs.velocity), angle(rhs.angle), angularVelocity(rhs.angularVelocity), dead(rhs.dead), radius(rhs.radius) {}
+
+
+
 // Move Method
 void Satellite::move(float time)
 {
@@ -22,6 +36,9 @@ void Satellite::move(float time)
 
    // gravity at height
    double gh = g * ( r / (r + h)) * (r / (r + h));
+   
+   //reassign gravity to gravity at height
+   g = gh;
    
    // direction of pull
    double d = atan2(0 - pos.getMetersX(), 0 - pos.getMetersY());
