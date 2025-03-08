@@ -17,7 +17,7 @@ class TestPosition;
 class TestVelocity;
 class TestAcceleration;
 class TestAngle;
-class TestHowitzer;
+class TestGPS;
 
 /************************************
  * ANGLE
@@ -25,11 +25,10 @@ class TestHowitzer;
 class Angle
 {
 public:
-    friend TestAcceleration;
-    friend TestVelocity;
-    friend TestAngle;
-    friend TestHowitzer;
-    friend TestProjectile;
+   friend TestAcceleration;
+   friend TestVelocity;
+   friend TestAngle;
+   friend TestGPS;
 
     // Constructors
     Angle();

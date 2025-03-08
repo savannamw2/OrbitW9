@@ -35,29 +35,24 @@ class Demo
        satellites.push_back(new GPS(Position(0.0, 42164000), Velocity(-3100, 0.0)));
 //      ptHubble.setPixelsX(ptUpperRight.getPixelsX() * random(-0.5, 0.5));
 //      ptHubble.setPixelsY(ptUpperRight.getPixelsY() * random(-0.5, 0.5));
-//      
+//
 //      ptSputnik.setPixelsX(ptUpperRight.getPixelsX() * random(-0.5, 0.5));
 //      ptSputnik.setPixelsY(ptUpperRight.getPixelsY() * random(-0.5, 0.5));
-//      
+//
 //      ptStarlink.setPixelsX(ptUpperRight.getPixelsX() * random(-0.5, 0.5));
 //      ptStarlink.setPixelsY(ptUpperRight.getPixelsY() * random(-0.5, 0.5));
-//      
+//
 //      ptCrewDragon.setPixelsX(ptUpperRight.getPixelsX() * random(-0.5, 0.5));
 //      ptCrewDragon.setPixelsY(ptUpperRight.getPixelsY() * random(-0.5, 0.5));
-//      
+//
 //      ptShip.setPixelsX(ptUpperRight.getPixelsX() * random(-0.5, 0.5));
 //      ptShip.setPixelsY(ptUpperRight.getPixelsY() * random(-0.5, 0.5));
-//      
+//
 //      ptGPS.setPixelsX(ptUpperRight.getPixelsX() * 0);
 //      ptGPS.setPixelsY(ptUpperRight.getPixelsY() * 42164000);
-//      
+//
 //      ptStar.setPixelsX(ptUpperRight.getPixelsX() * random(-0.5, 0.5));
 //      ptStar.setPixelsY(ptUpperRight.getPixelsY() * random(-0.5, 0.5));
-      
-      ptGPS.setMetersX(0.0);
-      ptGPS.setMetersY(42164000);
-      ptGPS.setDx(-3100);
-      ptGPS.setDy(0);
       
       angleShip = 0.0;
       angleEarth = 0.0;
@@ -73,13 +68,6 @@ class Demo
    Position ptGPS;
    Position ptStar;
    Position ptUpperRight;
-    
-    double hoursDay = 24.0;
-    double minutesHour = 60.0;
-    double td = hoursDay * minutesHour;
-    
-    double frameRate = 30.0;
-    double tpf = td / frameRate;
    
    unsigned char phaseStar;
    
@@ -136,32 +124,32 @@ void callBack(const Interface* pUI, void* p)
    
 //   double g = 9.80665;
 //   double r = 6378000;
-//   
-//   
+//
+//
 //   double h = sqrt((pDemo -> ptGPS.getMetersX() * pDemo -> ptGPS.getMetersX()) + (pDemo -> ptGPS.getMetersY() * pDemo -> ptGPS.getMetersY())) - r;
-//   
+//
 //   // acceleration
 //   double gh = g * ( r / (r + h)) * (r / (r + h));
-//   
+//
 //   // angle
 //   double d = atan2(0 - pDemo -> ptGPS.getMetersX(), 0 - pDemo -> ptGPS.getMetersY());
-//  
+//
 //   // velocity
 //   double ddx = gh * sin(d);
 //   double ddy = gh * cos(d);
-//   
+//
 //   pDemo -> ptGPS.setDx(pDemo -> ptGPS.getDx()  + (ddx * tpf));
 //   pDemo -> ptGPS.setDy(pDemo -> ptGPS.getDy()  + (ddy * tpf));
-//   
+//
 //   // distance
 //   pDemo->ptGPS.setMetersX(pDemo -> ptGPS.getMetersX() + ((pDemo -> ptGPS.getDx()  + (ddx * tpf)) * tpf) + (0.5 * gh * (tpf * tpf)));
 //   pDemo->ptGPS.setMetersY(pDemo -> ptGPS.getMetersY() + ((pDemo -> ptGPS.getDy()  + (ddy * tpf)) * tpf) + (0.5 * gh * (tpf * tpf)));
-//   
+//
    // rotate the earth
    pDemo->angleEarth += rf;
    //   pDemo->angleShip += 0.02;
    pDemo->phaseStar++;
-//   
+//
 //   //
 //   // draw everything
 //   //

@@ -39,7 +39,6 @@ public:
       getPosMax();
       moveSat1();
       moveSat2();
-      moveSat3();
       
       report("Satellite");
     }
@@ -250,35 +249,48 @@ private:
        assertEquals(s.pos.y, 100.0);
    }  // teardown
     
-    /*********************************************
-     * name:   Move
-     * input:   nothing
-     * output:
-     *********************************************/
    void moveSat1()
-   {  // setup
-       
-       
-   }  // teardown
-    
-    /*********************************************
-     * name:   MOVE
-     * input:   nothing
-     * output:
-     *********************************************/
+   {
+      // setup
+      Satellite s;
+      s.pos.x = 5000000000.0;
+      s.pos.y = 5000000000.0;
+      s.velocity.dx = 30.0;
+      s.velocity.dy = 30.0;
+      double time = 0;
+
+      // exercise
+      s.move(time);
+
+      //verify
+      assertEquals(time, 0);
+      assertEquals(s.velocity.dx, 30.0);
+      assertEquals(s.velocity.dy, 30.0);
+      assertEquals(s.pos.x, 5000000000.0);
+      assertEquals(s.pos.y, 5000000000.0);
+   } // teardown
+
+   /*********************************************
+   * name:    GET POSITION of Satellite after moving with time.
+   * input:   move(3)
+   * output:  x != 50,000km, y != 50,000km
+   *********************************************/
    void moveSat2()
-   {  // setup
-       
-       
-   }  // teardown
-    
-    /*********************************************
-     * name:  MOVE
-     * input:   nothing
-     * output:
-     *********************************************/
-   void moveSat3()
-   {  // setup
-       
-   }  // teardown
+   {
+      // setup
+      Satellite s;
+      s.pos.x = 50000000.0;
+      s.pos.y = 50000000.0;
+      s.velocity.dx = 30.0;
+      s.velocity.dy = 30.0;
+      double time = 3;
+
+      // exercise
+      s.move(time);
+
+      //verify
+      assertEquals(time, 3);
+      assertUnit(s.pos.x != 50000000.0);
+      assertUnit(s.pos.y != 50000000.0);
+   } // teardown
 };

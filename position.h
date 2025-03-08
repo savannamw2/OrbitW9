@@ -19,6 +19,8 @@
 class TestPosition;
 class Acceleration;
 class Velocity;
+class TestSatellite;
+class TestGPS; 
 
 /*********************************************
  * Position
@@ -28,9 +30,11 @@ class Position
 {
    public:
    friend TestPosition;
+   friend TestSatellite;
+   friend TestGPS;
    
    // constructors
-   Position()            : x(0.0), y(0.0)  {}
+   Position(): x(0.0), y(0.0)  {}
    Position(double x, double y);
    Position(const Position & pt) : x(pt.x), y(pt.y) {}
    Position& operator = (const Position& pt);

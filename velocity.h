@@ -13,11 +13,12 @@
 class TestPosition;
 class TestVelocity;
 class TestAcceleration;
-class TestProjectile;
 
 // for add()
 class Acceleration;
 class Angle;
+class TestGPS;
+class TestSatellite;
 
 /*********************************************
  * Velocity
@@ -26,9 +27,10 @@ class Angle;
 class Velocity
 {
     // for unit tests
-    friend TestPosition;
-    friend TestVelocity;
-    friend TestProjectile;
+   friend TestPosition;
+   friend TestVelocity;
+   friend TestSatellite;
+   friend TestGPS;
 
 public:
     // constructors

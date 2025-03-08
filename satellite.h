@@ -44,7 +44,7 @@ public:
    void virtual move(float time);
 //   void virtual input(Interface* ui) {}
    
-private:
+protected:
    Velocity velocity;
    Position pos;
    Angle angle; 

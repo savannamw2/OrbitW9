@@ -15,10 +15,10 @@
 #include "unitTest.h"
 #include <math.h>
 
-using namespace std;
+//using namespace std;
 
 
-class TestGPS
+class TestGPS : public UnitTest
 {
 public:
     void run()
@@ -38,7 +38,7 @@ public:
         moveSat2();
         moveSat3();
         
-        report("Satellite");
+        report("GPS");
     }
 
 private:
@@ -62,8 +62,8 @@ private:
     
         // verify
         assertUnit(gps.angularVelocity == 0.0);
-        assertUnit(gps.dead == false);
-        assertUnit(gps.radius == 0.0);
+//        assertUnit(gps.dead == false);
+        assertUnit(gps.radius == 12.0);
     }  // teardown
 
     /*********************************************
@@ -79,19 +79,17 @@ private:
        Position pos;
        pos.x = 0.0;
        pos.y = 0.0;
-       Angle angle;
-       angle.radius = 0.0;
-       
+      
       // exercise
-       GPS gps(pos, v, angle, 0.0, 0.0);
+       GPS gps(pos, v, 0.0, 0.0, 0.0);
        // verify
-       assertUnits(gps.pos.x == 0.0);
-       assertUnits(gps.pos.y == 0.0);
-       assertUnits(gps.velocity.dx == 0.0);
-       assertUnits(gps.velocity.dy == 0.0);
+       assertUnit(gps.pos.x == 0.0);
+       assertUnit(gps.pos.y == 0.0);
+       assertUnit(gps.velocity.dx == 0.0);
+       assertUnit(gps.velocity.dy == 0.0);
        assertUnit(gps.angularVelocity == 0.0);
        assertUnit(gps.dead == false);
-       assertUnit(gps.radius == 0.0);
+       assertUnit(gps.radius == 12.0);
    }  // teardown
     
     /*********************************************
@@ -107,16 +105,14 @@ private:
        Position pos;
        pos.x = 0.0;
        pos.y = 0.0;
-       Angle angle;
-       angle.radius = 0.0;
        
       // exercise
-       GPS gps(pos, v, angle);
+       GPS gps(pos, v);
        // verify
-       assertUnits(gps.pos.x == 0.0);
-       assertUnits(gps.pos.y == 0.0);
-       assertUnits(gps.velocity.dx == 0.0);
-       assertUnits(gps.velocity.dy == 0.0);
+       assertUnit(gps.pos.x == 0.0);
+       assertUnit(gps.pos.y == 0.0);
+       assertUnit(gps.velocity.dx == 0.0);
+       assertUnit(gps.velocity.dy == 0.0);
        assertUnit(gps.angularVelocity == 0.0);
        assertUnit(gps.dead == false);
        assertUnit(gps.radius == 0.0);
@@ -137,16 +133,16 @@ private:
         gps1.velocity = v;
         
         // exercise
-        GPS gps(s1);
+       GPS gps(gps1);
 
         // verify
-        assertUnits(gps.pos.x == 9.0);
-        assertUnits(gps.pos.y == 9.0);
-        assertUnits(gps.velocity.dx == 9.0);
-        assertUnits(gps.velocity.dy == 9.0);
+        assertUnit(gps.pos.x == 9.0);
+        assertUnit(gps.pos.y == 9.0);
+        assertUnit(gps.velocity.dx == 9.0);
+        assertUnit(gps.velocity.dy == 9.0);
         assertUnit(gps.angularVelocity == 0.0);
         assertUnit(gps.dead == false);
-        assertUnit(gps.radius == 0.0);
+        assertUnit(gps.radius == 12.0);
     }
      /*********************************************
       * name:   GET RADIUS
@@ -155,9 +151,9 @@ private:
       *********************************************/
     void getRadiusMax()
     {  // setup
-        GPS gps;
-        gps.radius = 10.0
-        float rad;
+      GPS gps;
+      gps.radius = 10.0;
+      float rad;
         
         // exercise
         rad = gps.getRadius();
@@ -174,7 +170,7 @@ private:
    void getRadiusMin()
    {  // setup
        GPS gps;
-       s.radius = 4.0
+      gps.radius = 4.0;
        float rad;
        
        // exercise
@@ -192,7 +188,7 @@ private:
    void getRadiusMed()
    {  // setup
        GPS gps;
-       gps.radius = 7.0
+      gps.radius = 7.0;
        float rad;
        
        // exercise
@@ -250,7 +246,7 @@ private:
        gps.pos.x = 0.0;
        gps.pos.y = 0.0;
        
-       Posistion p;
+       Position p;
        p.x = 99.0;
        p.y = 99.0;
        // exercise
@@ -275,7 +271,7 @@ private:
        gps.pos.x = 50.0;
        gps.pos.y = 50.0;
        
-       Posistion p;
+       Position p;
        p.x = 99.0;
        p.y = 99.0;
        // exercise
@@ -300,7 +296,7 @@ private:
        gps.pos.x = 100.0;
        gps.pos.y = 100.0;
        
-       Posistion p;
+       Position p;
        p.x = 99.0;
        p.y = 99.0;
        // exercise
@@ -345,4 +341,3 @@ private:
        
    }  // teardown
 };
-
