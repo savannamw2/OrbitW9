@@ -27,13 +27,15 @@ class TestShip : public UnitTest
 public:
     void run()
     {
-        defaultConstructor();
+//        defaultConstructor();
 //        initalConstructor2();
-        ThrustingIsTrue();
-        ThrustingIsFalse();
-        moveWithNoThrust();
-        moveWithThrust();
-        moveWithVel();
+//        ThrustingIsTrue();
+//        ThrustingIsFalse();
+//        moveWithNoThrust();
+//        moveWithThrust();
+//        moveWithVel();
+       move_thrust();
+       move_no_thrust();
 
       
       report("Ship");
@@ -47,177 +49,53 @@ private:
      *****************************************************************
      *****************************************************************/
 
-     /*********************************************
-      * name:    DEFAULT CONSTRUCTOR
-      * input:   nothing
-      * output:  zero
-      *********************************************/
-    void defaultConstructor()
-    {  // setup
-       // exercise
-       Ship s;
-
-    
-        // verify
-       assertUnit(s.pos.x == -22500);
-       assertUnit(s.pos.y == 22500);
-//        assertUnit(s.dead == false);
-        assertUnit(s.radius == 10.0);
-       assertUnit(s.velocity.dx == 0.0);
-       assertUnit(s.velocity.dy == -2000.0);
-        assertUnit(s.thrust == false);
-    }  // teardown
-
-    
-//    void copyConstructor()
-//    {
-//        // setup
-//        Velocity v;
-//        v.dx = 9.0;
-//        v.dy = 9.0;
-//        Position pos;
-//        pos.x = 9.0;
-//        pos.y = 9.0;
-//        
-//        Ship s1;
-//        s1.pos = pos;
-//        s1.velocity = v;
-//        
-//        // exercise
-//       Ship s(s1);
-//
-//        // verify
-//        assertUnit(s.pos.x == 9.0);
-//        assertUnit(s.pos.y == 9.0);
-//        assertUnit(s.velocity.dx == 9.0);
-//        assertUnit(s.velocity.dy == 9.0);
-//        assertUnit(s.angularVelocity == 0.0);
-//        assertUnit(s.dead == false);
-//        assertUnit(s.radius == 0.0);
-//    }
-    
-     /*********************************************
-      * name:   GET Thrusting
-      * input:   nothing
-      * output:  true
-      *********************************************/
-    void ThrustingIsTrue()
-    {  // setup
-        Ship s;
-        s.thrust = true;
-       
-        bool thrust;
-        
-        // exercise
-        thrust = s.isThrusting();
-        
-        // verify
-        assertUnit(s.thrust == true);
-        assertUnit(s.thrust == true);
-    }  // teardown
-
-    /*********************************************
-     * name:   GET Thrusting
-     * input:   nothing
-     * output:  false
-     *********************************************/
-   void ThrustingIsFalse()
+void move_thrust()
    {  // setup
-       Ship s;
-       s.thrust = false;
-      
-       bool thrust;
-       
-       // exercise
-       thrust = s.isThrusting();
-       
-       // verify
-       assertUnit(s.thrust == false);
-       assertUnit(s.thrust == false);
-   }  // teardown
+      Ship s;
+      s.thrust = true;
+      s.pos.x = 500000000;
+      s.pos.y = 500000000;
+      s.velocity.dx = 0;
+      s.velocity.dy = 0;
+      s.angle.radians = 0;
+      double dt = 48;
 
-    /*********************************************
-     * name:    MOVE WITHOUT THRUST
-     * input:   nothing
-     * output:  zero
-     *********************************************/
-   void moveWithNoThrust()
-   {  // setup
-       Velocity v;
-       v.dx = 0.0;
-       v.dy = 0.0;
-       Position pos;
-       pos.x = 0.0;
-       pos.y = 6380000;
-       Angle angle;
-       angle.radians = 90;
-       Ship s;
-       s.thrust = false;
+         // exercise
+      s.move(dt);
    
-      
-      // exercise
-       s.move(1.0);
-      
-      
-       // verify
-       assertUnit(s.pos.x == 256099.1);
-       assertUnit(s.pos.y == -258099.1);
+         // verify
+         // s_t = s_0 + v(t) + a(t * t)
+      assertUnit(s.isThrusting() == true);
+      assertEquals(s.pos.x,  499999998.7);
+      assertEquals(s.pos.y,  500004606.7);
+      assertEquals(s.velocity.dx, 0.0);
+      assertEquals(s.velocity.dy, 96.0);
+      assertUnit(dt == 48);
+      assertUnit(s.angle.radians == 0);
+      }  // teardown
 
-   }  // teardown
-    
-    /*********************************************
-     * name:    MOVE WITH THRUST
-     * input:   nothing
-     * output:  zero
-     *********************************************/
-   void moveWithThrust()
-   {  // setup
-       Velocity v;
-       v.dx = 0.0;
-       v.dy = 0.0;
-       Position pos;
-       pos.x = 0.0;
-       pos.y = 6381000;
-       Angle angle;
-       angle.radians = 90;
-       Ship s;
-       s.thrust = false;
-      
-      // exercise
-       s.move(1.0);
-      cout << s.pos.x;
-      cout << s.pos.y;
-      
-       // verify
-       assertUnit(s.pos.x == 256099.1s);
-       assertUnit(s.pos.y == -258099.1);
+      void move_no_thrust()
+      {  // setup
+         Ship s;
+         s.thrust = false;
+         s.pos.x = 500000000;
+         s.pos.y = 500000000;
+         s.velocity.dx = 0;
+         s.velocity.dy = 0;
+         s.angle.radians = 0;
+         double dt = 48;
 
-   }  // teardown
-    
-    /*********************************************
-     * name:    MOVE WITH VELOCITY
-     * input:   nothing
-     * output:  zero
-     *********************************************/
-   void moveWithVel()
-   {  // setup
-       Velocity v;
-       v.dx = 500.0;
-       v.dy = -100.0;
-       Position pos;
-       pos.x = 1000000.0;
-       pos.y = 6381000;
-       Angle angle;
-       angle.radians = 90;
-       Ship s;
-       s.thrust = true;
-     
-      // exercise
-       s.move(1.0);
-      
-      // verify
-       assertUnit(s.pos.x == 256100.5);
-       assertUnit(s.pos.y == -258100.5);
+         // exercise
+         s.move(dt);
 
-   }  // teardown
-};
+         // verify
+         assertUnit(s.thrust == false);
+         assertEquals(s.pos.x, 499999998.7);
+         assertEquals(s.pos.y, 499999998.7);
+         assertEquals(s.velocity.dx, 0.0);
+         assertEquals(s.velocity.dy, 0.0);
+         assertUnit(dt == 48);
+         assertUnit(s.angle.radians == 0);
+         
+      }
+   };

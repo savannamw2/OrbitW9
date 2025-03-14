@@ -20,7 +20,10 @@
 #include "ship.h"
 #include "test.h"
 #include <math.h>
-#include "GPS.h"
+#include "gps.h"
+#include "starlink.h"
+#include "dragon.h"
+#include "sputnik.h"
 #include <vector>
 using namespace std;
 
@@ -37,6 +40,9 @@ class Demo
    {
       satellites.push_back(new GPS(Position(0.0, 42164000), Velocity(-3100, 0.0)));
       satellites.push_back(new Hubble(Position(0.0, -42164000.0), Velocity(3100, 0.0)));
+      satellites.push_back(new Starlink(Position(0,-13020000), Velocity(5800, 0)));
+      satellites.push_back(new Dragon(Position(0,8000000), Velocity(-7900, 0)));
+      satellites.push_back(new Sputnik(Position(-36515095.13, 21082000.0), Velocity(2050, 2684.68)));
       
 //
 //      ptSputnik.setPixelsX(ptUpperRight.getPixelsX() * random(-0.5, 0.5));

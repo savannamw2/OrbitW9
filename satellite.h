@@ -16,12 +16,6 @@
 //#include "testSatellite.h"
 
 class TestSatellite;
-class TestGPS;
-class TestShip;
-class TestHubble;
-class TestSputnik;
-class TestStarlink;
-class TestDragon;
 
 /****************
  * Satellite Parent Class
@@ -30,13 +24,6 @@ class Satellite
 {
 public:
    friend TestSatellite;
-    friend TestGPS;
-    friend TestShip;
-    friend TestHubble;
-    friend TestSputnik;
-    friend TestStarlink;
-    friend TestDragon;
-    
    
    Satellite() : pos(), velocity(), angle(), angularVelocity(0.0), dead(false), radius(0.0) {}
    Satellite(const Position& pos, const Velocity& vel, const Angle& angle, double angularVelocity, double radius);

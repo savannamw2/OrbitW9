@@ -34,9 +34,6 @@ public:
         getPosMin();
         getPosMed();
         getPosMax();
-        moveSat1();
-        moveSat2();
-        moveSat3();
         
         report("GPS");
     }
@@ -309,35 +306,4 @@ private:
        assertEquals(gps.pos.y, 100.0);
    }  // teardown
     
-    /*********************************************
-     * name:   Move
-     * input:   nothing
-     * output:
-     *********************************************/
-   void moveSat1()
-   {  // setup
-       
-       
-   }  // teardown
-    
-    /*********************************************
-     * name:   MOVE
-     * input:   nothing
-     * output:
-     *********************************************/
-   void moveSat2()
-   {  // setup
-       
-       
-   }  // teardown
-    
-    /*********************************************
-     * name:  MOVE
-     * input:   nothing
-     * output:
-     *********************************************/
-   void moveSat3()
-   {  // setup
-       
-   }  // teardown
 };

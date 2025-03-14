@@ -37,11 +37,11 @@ class Position
    friend TestPosition;
    friend TestSatellite;
    friend TestGPS;
-    friend TestShip;
-    friend TestHubble;
-    friend TestSputnik;
-    friend TestStarlink;
-    friend TestDragon;
+   friend TestShip;
+   friend TestHubble;
+   friend TestSputnik;
+   friend TestStarlink;
+   friend TestDragon;
     
    
    // constructors
@@ -115,5 +115,3 @@ struct PT
    double x;
    double y;
 };
-
-

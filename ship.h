@@ -16,8 +16,11 @@ class Ship : public Satellite
 
 public:
    
-   Ship() : Satellite() {radius = 10.0; pos.setPixelsX(-450.0); pos.setPixelsY(450.0);
-      velocity = Velocity(0.0, -2000.0); thrust = false;}
+   Ship() : Satellite() {radius = 10.0;
+                        pos.setPixelsX(-450.0);
+                        pos.setPixelsY(450.0);
+                        velocity = Velocity(0.0, -2000.0);
+                        thrust = false;}
    
 
    void draw(ogstream& gout) override;

@@ -9,11 +9,11 @@
 #include "satellite.h"
 
 
-//class TestHubble;
+class TestHubble;
 
 class Hubble : public Satellite
 {
-//   friend TestHubble;
+   friend TestHubble;
     
 public:
    

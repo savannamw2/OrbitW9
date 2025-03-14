@@ -67,4 +67,3 @@ private:
     double dx;           // horizontal velocity
     double dy;           // vertical velocity
 };
-
