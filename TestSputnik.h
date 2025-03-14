@@ -1,10 +1,17 @@
+//
+//  TestSputnik.h
+//  Orbit
+//
+//  Created by Isabel Kamphaus on 3/13/25.
+//
+
 #pragma once
 
 
 #include "angle.h"
 #include "velocity.h"
 #include "satellite.h"
-#include "hubble.h"
+#include "sputnik.h"
 #include "unitTest.h"
 #include <math.h>
 #include "position.h"
@@ -13,7 +20,7 @@
 //using namespace std;
 
 
-class TestHubble : public UnitTest
+class TestSputnik : public UnitTest
 {
 public:
     void run()
@@ -33,7 +40,7 @@ public:
         moveSat2();
         moveSat3();
         
-        report("Hubble");
+        report("GPS");
     }
 
 private:
@@ -53,12 +60,12 @@ private:
     {  // setup
        // exercise
         
-        Hubble h;
+        Sputnik s;
     
         // verify
-        assertUnit(h.angularVelocity == 0.0);
+        assertUnit(s.angularVelocity == 0.0);
 //        assertUnit(gps.dead == false);
-        assertUnit(h.radius == 10.0);
+        assertUnit(s.radius == 12.0);
     }  // teardown
 
     /*********************************************
@@ -77,15 +84,15 @@ private:
        Angle a;
        a.radians = 90;
       // exercise
-       Hubble h(pos, v, a, 0.0, 0.0);
+       Sputnik s(pos, v, a, 0.0, 0.0);
        // verify
-       assertUnit(h.pos.x == 0.0);
-       assertUnit(h.pos.y == 0.0);
-       assertUnit(h.velocity.dx == 0.0);
-       assertUnit(h.velocity.dy == 0.0);
-       assertUnit(h.angularVelocity == 0.0);
-       assertUnit(h.dead == false);
-       assertUnit(h.radius == 10.0);
+       assertUnit(s.pos.x == 0.0);
+       assertUnit(s.pos.y == 0.0);
+       assertUnit(s.velocity.dx == 0.0);
+       assertUnit(s.velocity.dy == 0.0);
+       assertUnit(s.angularVelocity == 0.0);
+       assertUnit(s.dead == false);
+       assertUnit(s.radius == 4.0);
    }  // teardown
     
     /*********************************************
@@ -103,15 +110,15 @@ private:
        pos.y = 0.0;
        
       // exercise
-       Hubble h(pos, v);
+       Sputnik s(pos, v);
        // verify
-       assertUnit(h.pos.x == 0.0);
-       assertUnit(h.pos.y == 0.0);
-       assertUnit(h.velocity.dx == 0.0);
-       assertUnit(h.velocity.dy == 0.0);
-       assertUnit(h.angularVelocity == 0.0);
-       assertUnit(h.dead == false);
-       assertUnit(h.radius == 0.0);
+       assertUnit(s.pos.x == 0.0);
+       assertUnit(s.pos.y == 0.0);
+       assertUnit(s.velocity.dx == 0.0);
+       assertUnit(s.velocity.dy == 0.0);
+       assertUnit(s.angularVelocity == 0.0);
+       assertUnit(s.dead == false);
+       assertUnit(s.radius == 0.0);
    }  // teardown
     
     void copyConstructor()
@@ -124,38 +131,38 @@ private:
         pos.x = 9.0;
         pos.y = 9.0;
         
-        Hubble h1;
-        h1.pos = pos;
-        h1.velocity = v;
+        Sputnik s1;
+        s1.pos = pos;
+        s1.velocity = v;
         
         // exercise
-        Hubble h(h1);
+        Sputnik s(s1);
 
         // verify
-        assertUnit(h.pos.x == 9.0);
-        assertUnit(h.pos.y == 9.0);
-        assertUnit(h.velocity.dx == 9.0);
-        assertUnit(h.velocity.dy == 9.0);
-        assertUnit(h.angularVelocity == 0.0);
-        assertUnit(h.dead == false);
-        assertUnit(h.radius == 12.0);
+        assertUnit(s.pos.x == 9.0);
+        assertUnit(s.pos.y == 9.0);
+        assertUnit(s.velocity.dx == 9.0);
+        assertUnit(s.velocity.dy == 9.0);
+        assertUnit(s.angularVelocity == 0.0);
+        assertUnit(s.dead == false);
+        assertUnit(s.radius == 4.0);
     }
      /*********************************************
       * name:   GET RADIUS
       * input:   nothing
-      * output:  90
+      * output:  10
       *********************************************/
     void getRadiusMax()
     {  // setup
-      Hubble h;
-      h.radius = 90.0;
-      float rad;
+        Sputnik s;
+        s.radius = 10.0;
+        float rad;
         
         // exercise
-        rad = h.getRadius();
+        rad = s.getRadius();
         
         // verify
-        assertEquals(rad, 90.0);
+        assertEquals(rad, 10.0);
     }  // teardown
 
     /*********************************************
@@ -165,12 +172,12 @@ private:
      *********************************************/
    void getRadiusMin()
    {  // setup
-       Hubble h;
-      h.radius = 4.0;
+       Sputnik s;
+       s.radius = 4.0;
        float rad;
        
        // exercise
-       rad = h.getRadius();
+       rad = s.getRadius();
        
        // verify
        assertEquals(rad, 4.0);
@@ -183,12 +190,12 @@ private:
      *********************************************/
    void getRadiusMed()
    {  // setup
-       Hubble h;
-      h.radius = 7.0;
+       Sputnik s;
+       s.radius = 7.0;
        float rad;
        
        // exercise
-       rad = h.getRadius();
+       rad = s.getRadius();
        
        // verify
        assertEquals(rad, 7.0);
@@ -201,12 +208,12 @@ private:
      *********************************************/
    void isDeadTrue()
    {  // setup
-       Hubble h;
-        h.dead = true;
+       Sputnik s;
+       s.dead = true;
        bool dead;
        
        // exercise
-       dead = h.isDead();
+       dead = s.isDead();
        
        // verify
        assertEquals(dead, true);
@@ -219,12 +226,12 @@ private:
      *********************************************/
    void isDeadFalse()
    {  // setup
-       Hubble h;
-       h.dead = false;
+       Sputnik s;
+       s.dead = false;
        bool dead;
        
        // exercise
-       dead = h.isDead();
+       dead = s.isDead();
        
        // verify
        assertEquals(dead, false);
@@ -237,22 +244,22 @@ private:
      *********************************************/
    void getPosMin()
    {  // setup
-       Hubble h;
+       Sputnik s;
 
-       h.pos.x = 0.0;
-       h.pos.y = 0.0;
+       s.pos.x = 0.0;
+       s.pos.y = 0.0;
        
        Position p;
        p.x = 99.0;
        p.y = 99.0;
        // exercise
-       p = h.getPosition();
+       p = s.getPosition();
        
        // verify
        assertEquals(p.x, 0.0);
        assertEquals(p.y, 0.0);
-       assertEquals(h.pos.x, 0.0);
-       assertEquals(h.pos.y, 0.0);
+       assertEquals(s.pos.x, 0.0);
+       assertEquals(s.pos.y, 0.0);
    }  // teardown
     
     /*********************************************
@@ -262,22 +269,22 @@ private:
      *********************************************/
    void getPosMed()
    {  // setup
-       Hubble h;
+       Sputnik s;
 
-       h.pos.x = 50.0;
-       h.pos.y = 50.0;
+       s.pos.x = 50.0;
+       s.pos.y = 50.0;
        
        Position p;
        p.x = 99.0;
        p.y = 99.0;
        // exercise
-       p = h.getPosition();
+       p = s.getPosition();
        
        // verify
        assertEquals(p.x, 50.0);
        assertEquals(p.y, 50.0);
-       assertEquals(h.pos.x, 50.0);
-       assertEquals(h.pos.y, 50.0);
+       assertEquals(s.pos.x, 50.0);
+       assertEquals(s.pos.y, 50.0);
    }  // teardown
     
     /*********************************************
@@ -287,22 +294,22 @@ private:
      *********************************************/
    void getPosMax()
    {  // setup
-       Hubble h;
+       Sputnik s;
 
-       h.pos.x = 100.0;
-       h.pos.y = 100.0;
+       s.pos.x = 100.0;
+       s.pos.y = 100.0;
        
        Position p;
        p.x = 99.0;
        p.y = 99.0;
        // exercise
-       p = h.getPosition();
+       p = s.getPosition();
        
        // verify
        assertEquals(p.x, 100.0);
        assertEquals(p.y, 100.0);
-       assertEquals(h.pos.x, 100.0);
-       assertEquals(h.pos.y, 100.0);
+       assertEquals(s.pos.x, 100.0);
+       assertEquals(s.pos.y, 100.0);
    }  // teardown
     
 

@@ -20,6 +20,10 @@ class Angle;
 class TestGPS;
 class TestSatellite;
 class TestShip;
+class TestHubble;
+class TestSputnik;
+class TestStarlink;
+class TestDragon;
 
 /*********************************************
  * Velocity
@@ -32,7 +36,12 @@ class Velocity
    friend TestVelocity;
    friend TestSatellite;
    friend TestGPS;
-   friend TestShip;
+    friend TestShip;
+    friend TestHubble;
+    friend TestSputnik;
+    friend TestStarlink;
+    friend TestDragon;
+    
 
 public:
     // constructors
