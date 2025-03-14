@@ -8,19 +8,23 @@
 #include "satellite.h"
 #include "uiInteract.h"
 
+class TestShip;
+
 class Ship : public Satellite
 {
+   friend TestShip;
+
 public:
-   Ship() : Satellite() {};
-   Ship(const Position& pos, const Velocity& velocity, const Angle & angle, double angularVelocity,  float radius) : Satellite(pos, velocity, angle, angularVelocity, radius) {};
-    Ship(const Position& pos, const Velocity& velocity) : Satellite(pos, velocity) {}
-   Ship(const Ship& rhs);
+   
+   Ship() : Satellite() {radius = 10.0; pos.setPixelsX(-450.0); pos.setPixelsY(450.0);
+      velocity = Velocity(0.0, -2000.0); thrust = false;}
+   
 
    void draw(ogstream& gout) override;
    
    bool isThrusting();
    
-   void input(const Interface *pUI);
+   void input(const Interface *pUI, double time);
    
    void move(float time) override; 
 

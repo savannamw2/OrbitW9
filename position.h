@@ -20,7 +20,8 @@ class TestPosition;
 class Acceleration;
 class Velocity;
 class TestSatellite;
-class TestGPS; 
+class TestGPS;
+class TestShip;
 
 /*********************************************
  * Position
@@ -32,6 +33,7 @@ class Position
    friend TestPosition;
    friend TestSatellite;
    friend TestGPS;
+   friend TestShip; 
    
    // constructors
    Position(): x(0.0), y(0.0)  {}

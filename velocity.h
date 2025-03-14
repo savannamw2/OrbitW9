@@ -19,6 +19,7 @@ class Acceleration;
 class Angle;
 class TestGPS;
 class TestSatellite;
+class TestShip;
 
 /*********************************************
  * Velocity
@@ -31,6 +32,7 @@ class Velocity
    friend TestVelocity;
    friend TestSatellite;
    friend TestGPS;
+   friend TestShip;
 
 public:
     // constructors

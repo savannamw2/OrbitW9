@@ -17,18 +17,19 @@ void Ship::draw(ogstream& gout)
 }
 
 
-void Ship::input(const Interface *pUI)
+void Ship::input(const Interface *pUI, double time)
 {
    if (pUI -> isLeft())
    {
-      angle.add(-1.0);
+      angle.add(0.25);
    }
    if (pUI -> isRight())
    {
-      angle.add(1.0);
+      angle.add(-0.25);
    }
    
    thrust = pUI -> isDown();
+   move(time);
 }
 
 bool Ship::isThrusting()
@@ -69,13 +70,13 @@ void Ship::move(float time)
    {
       ddx += thrust * sin(d);
       ddy += thrust * cos(d);
-   }
+   } 
    
    Acceleration accel(ddx, ddy);
    
    
    // update velocity
-   velocity.add(accel, time);
+   velocity.add(accel, time / 2.0);
    
    // update point
    pos.add(accel, velocity, time);

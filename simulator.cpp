@@ -16,6 +16,8 @@
 #include "uiDraw.h"     // for RANDOM and DRAW*
 #include "position.h"      // for POINT
 #include "satellite.h"
+#include "hubble.h"
+#include "ship.h"
 #include "test.h"
 #include <math.h>
 #include "GPS.h"
@@ -30,11 +32,12 @@ class Demo
 {
    public:
    Demo(Position ptUpperRight) :
-   ptUpperRight(ptUpperRight)
+   ptUpperRight(ptUpperRight),
+   tpf((24.0 * 60.0) / 30.0)
    {
-       satellites.push_back(new GPS(Position(0.0, 42164000), Velocity(-3100, 0.0)));
-//      ptHubble.setPixelsX(ptUpperRight.getPixelsX() * random(-0.5, 0.5));
-//      ptHubble.setPixelsY(ptUpperRight.getPixelsY() * random(-0.5, 0.5));
+      satellites.push_back(new GPS(Position(0.0, 42164000), Velocity(-3100, 0.0)));
+      satellites.push_back(new Hubble(Position(0.0, -42164000.0), Velocity(3100, 0.0)));
+      
 //
 //      ptSputnik.setPixelsX(ptUpperRight.getPixelsX() * random(-0.5, 0.5));
 //      ptSputnik.setPixelsY(ptUpperRight.getPixelsY() * random(-0.5, 0.5));
@@ -47,32 +50,21 @@ class Demo
 //
 //      ptShip.setPixelsX(ptUpperRight.getPixelsX() * random(-0.5, 0.5));
 //      ptShip.setPixelsY(ptUpperRight.getPixelsY() * random(-0.5, 0.5));
-//
-//      ptGPS.setPixelsX(ptUpperRight.getPixelsX() * 0);
-//      ptGPS.setPixelsY(ptUpperRight.getPixelsY() * 42164000);
-//
+
 //      ptStar.setPixelsX(ptUpperRight.getPixelsX() * random(-0.5, 0.5));
 //      ptStar.setPixelsY(ptUpperRight.getPixelsY() * random(-0.5, 0.5));
-      
-      angleShip = 0.0;
-      angleEarth = 0.0;
-      phaseStar = 0;
        
    }
-   
-   Position ptHubble;
-   Position ptSputnik;
-   Position ptStarlink;
-   Position ptCrewDragon;
-   Position ptShip;
-   Position ptGPS;
-   Position ptStar;
-   Position ptUpperRight;
+
    
    unsigned char phaseStar;
-   
+   Position ptShip;
+   Ship ship;
    double angleShip;
    double angleEarth;
+   double tpf;
+   Position ptUpperRight;
+   Position ptStar;
     vector<Satellite*> satellites;
     
 
@@ -99,68 +91,36 @@ void callBack(const Interface* pUI, void* p)
     //vector<Satellite()> satellites;
     
    // move by a little
-   if (pUI->isUp())
-      pDemo->ptShip.addPixelsY(1.0);
-   if (pUI->isDown())
-      pDemo->ptShip.addPixelsY(-1.0);
-   if (pUI->isLeft())
-      pDemo->ptShip.addPixelsX(-1.0);
-   if (pUI->isRight())
-      pDemo->ptShip.addPixelsX(1.0);
+//   if (pUI->isUp())
+//      pDemo->ptShip.addPixelsY(1.0);
+//   if (pUI->isDown())
+//      pDemo->ptShip.addPixelsY(-1.0);
+//   if (pUI->isLeft())
+//      pDemo->ptShip.addPixelsX(-1.0);
+//   if (pUI->isRight())
+//      pDemo->ptShip.addPixelsX(1.0);
    
-   
-   //
-   // perform all the game logic
-   
-   double hoursDay = 24.0;
-   double minutesHour = 60.0;
-   double td = hoursDay * minutesHour;
-   
-   double frameRate = 30.0;
-   double tpf = td / frameRate;
    
    double secondsDay =  86400;
-   double rf = -(2 * (M_PI) / frameRate) * (td / secondsDay);
+   double rf = -(2 * (M_PI) / 30.0) * (pDemo -> tpf * 30.0 / secondsDay);
    
-//   double g = 9.80665;
-//   double r = 6378000;
-//
-//
-//   double h = sqrt((pDemo -> ptGPS.getMetersX() * pDemo -> ptGPS.getMetersX()) + (pDemo -> ptGPS.getMetersY() * pDemo -> ptGPS.getMetersY())) - r;
-//
-//   // acceleration
-//   double gh = g * ( r / (r + h)) * (r / (r + h));
-//
-//   // angle
-//   double d = atan2(0 - pDemo -> ptGPS.getMetersX(), 0 - pDemo -> ptGPS.getMetersY());
-//
-//   // velocity
-//   double ddx = gh * sin(d);
-//   double ddy = gh * cos(d);
-//
-//   pDemo -> ptGPS.setDx(pDemo -> ptGPS.getDx()  + (ddx * tpf));
-//   pDemo -> ptGPS.setDy(pDemo -> ptGPS.getDy()  + (ddy * tpf));
-//
-//   // distance
-//   pDemo->ptGPS.setMetersX(pDemo -> ptGPS.getMetersX() + ((pDemo -> ptGPS.getDx()  + (ddx * tpf)) * tpf) + (0.5 * gh * (tpf * tpf)));
-//   pDemo->ptGPS.setMetersY(pDemo -> ptGPS.getMetersY() + ((pDemo -> ptGPS.getDy()  + (ddy * tpf)) * tpf) + (0.5 * gh * (tpf * tpf)));
-//
+
    // rotate the earth
    pDemo->angleEarth += rf;
+  
    //   pDemo->angleShip += 0.02;
    pDemo->phaseStar++;
-//
-//   //
-//   // draw everything
-//   //
    
-   Position pt;
-   ogstream gout(pt);
+   // draw everything
+   ogstream gout;
+   
+   pDemo->ship.input(pUI, pDemo-> tpf);
     
     for(Satellite *sat : pDemo->satellites){
-        sat->move(tpf);
+        sat->move(pDemo -> tpf);
     }
     
+    pDemo->ship.draw(gout);
     for(Satellite* sat : pDemo->satellites){
         sat->draw(gout);
     }
@@ -200,6 +160,7 @@ void callBack(const Interface* pUI, void* p)
    gout.drawStar(pDemo->ptStar, pDemo->phaseStar);
    
    // draw the earth
+   Position pt;
    pt.setMeters(0.0, 0.0);
    gout.drawEarth(pt, pDemo->angleEarth);
 }

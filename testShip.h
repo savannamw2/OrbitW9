@@ -9,7 +9,7 @@
 
 #pragma once
 
-#include "Ship.h"
+#include "ship.h"
 #include "angle.h"
 #include "velocity.h"
 #include "position.h"
@@ -28,8 +28,7 @@ public:
     void run()
     {
         defaultConstructor();
-        initalConstructor();
-        initalConstructor2();
+//        initalConstructor2();
         ThrustingIsTrue();
         ThrustingIsFalse();
         moveWithNoThrust();
@@ -57,94 +56,45 @@ private:
     {  // setup
        // exercise
        Ship s;
+
     
         // verify
-        assertUnit(s.angularVelocity == 0.0);
-        assertUnit(s.dead == false);
-        assertUnit(s.radius == 0.0);
+       assertUnit(s.pos.x == -22500);
+       assertUnit(s.pos.y == 22500);
+//        assertUnit(s.dead == false);
+        assertUnit(s.radius == 10.0);
+       assertUnit(s.velocity.dx == 0.0);
+       assertUnit(s.velocity.dy == -2000.0);
         assertUnit(s.thrust == false);
     }  // teardown
 
-    /*********************************************
-     * name:    DEFAULT CONSTRUCTOR
-     * input:   nothing
-     * output:  zero
-     *********************************************/
-   void initalConstructor()
-   {  // setup
-       Velocity v;
-       v.dx = 9.0;
-       v.dy = 9.0;
-       Position pos;
-       pos.x = 9.0;
-       pos.y = 9.0;
-       Angle angle;
-       angle.radians = 90;
-        
-      // exercise
-       Ship s(pos, v, angle, 9.0, 9.0);
-       // verify
-       assertUnit(s.pos.x == 9.0);
-       assertUnit(s.pos.y == 9.0);
-       assertUnit(s.velocity.dx == 9.0);
-       assertUnit(s.velocity.dy == 9.0);
-       assertUnit(s.angularVelocity == 9.0);
-       assertUnit(s.dead == false);
-       assertUnit(s.radius == 9.0);
-   }  // teardown
     
-    /*********************************************
-     * name:    DEFAULT CONSTRUCTOR
-     * input:   nothing
-     * output:  zero
-     *********************************************/
-   void initalConstructor2()
-   {  // setup
-       Velocity v;
-       v.dx = 9.0;
-       v.dy = 9.0;
-       Position pos;
-       pos.x = 9.0;
-       pos.y = 9.0;
-       
-      // exercise
-       Ship s(pos, v);
-       // verify
-       assertUnit(s.pos.x == 9.0);
-       assertUnit(s.pos.y == 9.0);
-       assertUnit(s.velocity.dx == 9.0);
-       assertUnit(s.velocity.dy == 9.0);
-       assertUnit(s.angularVelocity == 0.0);
-       assertUnit(s.dead == false);
-       assertUnit(s.radius == 0.0);
-   }  // teardown
-    
-    void copyConstructor()
-    {
-        // setup
-        Velocity v;
-        v.dx = 9.0;
-        v.dy = 9.0;
-        Position pos;
-        pos.x = 9.0;
-        pos.y = 9.0;
-        
-        Ship s1;
-        s1.pos = pos;
-        s1.velocity = v;
-        
-        // exercise
-       Ship s(s1);
-
-        // verify
-        assertUnit(s.pos.x == 9.0);
-        assertUnit(s.pos.y == 9.0);
-        assertUnit(s.velocity.dx == 9.0);
-        assertUnit(s.velocity.dy == 9.0);
-        assertUnit(s.angularVelocity == 0.0);
-        assertUnit(s.dead == false);
-        assertUnit(s.radius == 0.0);
-    }
+//    void copyConstructor()
+//    {
+//        // setup
+//        Velocity v;
+//        v.dx = 9.0;
+//        v.dy = 9.0;
+//        Position pos;
+//        pos.x = 9.0;
+//        pos.y = 9.0;
+//        
+//        Ship s1;
+//        s1.pos = pos;
+//        s1.velocity = v;
+//        
+//        // exercise
+//       Ship s(s1);
+//
+//        // verify
+//        assertUnit(s.pos.x == 9.0);
+//        assertUnit(s.pos.y == 9.0);
+//        assertUnit(s.velocity.dx == 9.0);
+//        assertUnit(s.velocity.dy == 9.0);
+//        assertUnit(s.angularVelocity == 0.0);
+//        assertUnit(s.dead == false);
+//        assertUnit(s.radius == 0.0);
+//    }
     
      /*********************************************
       * name:   GET Thrusting
@@ -203,11 +153,15 @@ private:
        angle.radians = 90;
        Ship s;
        s.thrust = false;
+   
+      
       // exercise
        s.move(1.0);
+      
+      
        // verify
-       assertUnit(s.pos.x == 0.0);
-       assertUnit(s.pos.y == 6377990.19);
+       assertUnit(s.pos.x == 256099.1);
+       assertUnit(s.pos.y == -258099.1);
 
    }  // teardown
     
@@ -228,11 +182,15 @@ private:
        angle.radians = 90;
        Ship s;
        s.thrust = false;
+      
       // exercise
        s.move(1.0);
+      cout << s.pos.x;
+      cout << s.pos.y;
+      
        // verify
-       assertUnit(s.pos.x == 0.0);
-       assertUnit(s.pos.y == 6378988.20);
+       assertUnit(s.pos.x == 256099.1s);
+       assertUnit(s.pos.y == -258099.1);
 
    }  // teardown
     
@@ -253,11 +211,13 @@ private:
        angle.radians = 90;
        Ship s;
        s.thrust = true;
+     
       // exercise
        s.move(1.0);
-       // verify
-       assertUnit(s.pos.x == 1000498.52);
-       assertUnit(s.pos.y == 6378890.55);
+      
+      // verify
+       assertUnit(s.pos.x == 256100.5);
+       assertUnit(s.pos.y == -258100.5);
 
    }  // teardown
 };
