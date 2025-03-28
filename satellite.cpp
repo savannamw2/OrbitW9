@@ -49,9 +49,11 @@ void Satellite::move(float time)
    Acceleration accel(ddx, ddy);
    
    // update velocity
-   velocity.add(accel, time);
+   velocity.add(accel, time / 2) ;
    
    // update point
    pos.add(accel, velocity, time);
+   
+   velocity.add(accel, time / 2) ;
 }
 

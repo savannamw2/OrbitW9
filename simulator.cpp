@@ -38,30 +38,23 @@ class Demo
    ptUpperRight(ptUpperRight),
    tpf((24.0 * 60.0) / 30.0)
    {
-      satellites.push_back(new GPS(Position(0.0, 42164000), Velocity(-3100, 0.0)));
-      satellites.push_back(new Hubble(Position(0.0, -42164000.0), Velocity(3100, 0.0)));
+      satellites.push_back(new GPS(Position(0, 26560000), Velocity(-3880, 0)));
+      satellites.push_back(new GPS(Position(23001634.72, 13280000.0), Velocity(-1940.00, 3360.18)));
+      satellites.push_back(new GPS(Position(23001634.72, -13280000.0), Velocity(1940.00, 3360.18)));
+      satellites.push_back(new GPS(Position(-23001634.72, -13280000.0), Velocity(1940.00, -3360.18)));
+      satellites.push_back(new GPS(Position(-23001634.72, 13280000.0), Velocity(-1940.00, -3360.18)));
+      satellites.push_back(new GPS(Position(0, -26560000), Velocity(3880, 0)));
+      
+      satellites.push_back(new Hubble(Position(0.0, -42164000.0), Velocity(-3100, 0.0)));
       satellites.push_back(new Starlink(Position(0,-13020000), Velocity(5800, 0)));
       satellites.push_back(new Dragon(Position(0,8000000), Velocity(-7900, 0)));
       satellites.push_back(new Sputnik(Position(-36515095.13, 21082000.0), Velocity(2050, 2684.68)));
       
-//
-//      ptSputnik.setPixelsX(ptUpperRight.getPixelsX() * random(-0.5, 0.5));
-//      ptSputnik.setPixelsY(ptUpperRight.getPixelsY() * random(-0.5, 0.5));
-//
-//      ptStarlink.setPixelsX(ptUpperRight.getPixelsX() * random(-0.5, 0.5));
-//      ptStarlink.setPixelsY(ptUpperRight.getPixelsY() * random(-0.5, 0.5));
-//
-//      ptCrewDragon.setPixelsX(ptUpperRight.getPixelsX() * random(-0.5, 0.5));
-//      ptCrewDragon.setPixelsY(ptUpperRight.getPixelsY() * random(-0.5, 0.5));
-//
-//      ptShip.setPixelsX(ptUpperRight.getPixelsX() * random(-0.5, 0.5));
-//      ptShip.setPixelsY(ptUpperRight.getPixelsY() * random(-0.5, 0.5));
-
-//      ptStar.setPixelsX(ptUpperRight.getPixelsX() * random(-0.5, 0.5));
-//      ptStar.setPixelsY(ptUpperRight.getPixelsY() * random(-0.5, 0.5));
+      
+      ptStar.setPixelsX(ptUpperRight.getPixelsX() * random(-0.5, 0.5));
+      ptStar.setPixelsY(ptUpperRight.getPixelsY() * random(-0.5, 0.5));
        
    }
-
    
    unsigned char phaseStar;
    Position ptShip;
@@ -71,7 +64,7 @@ class Demo
    double tpf;
    Position ptUpperRight;
    Position ptStar;
-    vector<Satellite*> satellites;
+   vector<Satellite*> satellites;
     
 
 
