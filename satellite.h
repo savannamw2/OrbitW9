@@ -40,8 +40,9 @@ public:
       
    }
    
+    void kill() { dead = true; }
 //   void virtual destroy(std::vector <Satellite>& satellites) {}
-   void virtual move(float time);
+    void virtual move(float time);
 //   void virtual input(Interface* ui) {}
    
 protected:
