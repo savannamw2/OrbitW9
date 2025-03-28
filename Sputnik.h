@@ -21,7 +21,7 @@ public:
     
    
     // implement satellite virtual functions
-
+    virtual void destroy(std::vector<Satellite*>& satellites) override = 0;
     void draw(ogstream& gout) const;
 
 };
