@@ -65,4 +65,12 @@ void Position::add(const Acceleration & a, const Velocity & v, double t)
 {
     this -> x = x + (v.getDX() * t) + (( 1.0 / 2.0) * (a.getDDX() * (t * t)));
     this -> y = y + (v.getDY() * t) + (( 1.0 / 2.0) * (a.getDDY() * (t * t)));
+   
+}
+
+// update pixels with parts
+void Position::addPixels(double pixels, double angleRadians)
+{
+   addPixelsX(pixels * sin(angleRadians));
+   addPixelsY(pixels * cos(angleRadians));
 }

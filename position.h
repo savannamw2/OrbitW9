@@ -73,6 +73,7 @@ class Position
    void addMetersY(double dyMeters)      { setMetersY(getMetersY() + dyMeters);     }
    void addPixelsX(double dxPixels)      { setPixelsX(getPixelsX() + dxPixels);     }
    void addPixelsY(double dyPixels)      { setPixelsY(getPixelsY() + dyPixels);     }
+   void addPixels(double pixels, double angle);
    
    void add(const Acceleration &a, const Velocity &v, double t);
 
