@@ -19,6 +19,8 @@
 #include "testSputnik.h"
 #include "testDragon.h"
 #include "testStarlink.h"
+#include "testParts.h"
+#include "testFragments.h"
 
 // This code, and the similar IF_DEF in testRunner(), is to ensure that
 // you can see the text output (called the console window) and OpenGL's
@@ -56,6 +58,8 @@ void testRunner()
    TestHubble().run();
    TestStarlink().run();
    TestSputnik().run();
-   TestDragon().run(); 
+   TestDragon().run();
+    TestParts().run();
+    TestFragments().run();
 
 }

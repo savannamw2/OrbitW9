@@ -13,10 +13,13 @@
 //class TestParts;
 class Position;
 class Velocity;
+class TestParts;
+class TestFragments;
 
 class Parts : public Satellite
 {
-//   friend TestParts;
+   friend TestParts;
+    friend TestFragments;
     
 public:
    

@@ -23,6 +23,7 @@ class TestHubble;
 class TestSputnik;
 class TestStarlink;
 class TestDragon;
+class TestParts;
 
 /************************************
  * ANGLE
@@ -39,6 +40,7 @@ public:
     friend TestSputnik;
     friend TestStarlink;
     friend TestDragon;
+    friend TestParts;
     
 
     // Constructors

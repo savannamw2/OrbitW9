@@ -17,10 +17,13 @@
 
 class Position;
 class Velocity;
+class TestFragments;
 
 class Fragment: public Parts
 {
 public:
+    friend TestFragments;
+    
     Fragment(): Parts(), age(random(50, 100)){
         this->angularVelocity = random(0.0, .75);
     }

@@ -24,6 +24,8 @@ class TestHubble;
 class TestSputnik;
 class TestStarlink;
 class TestDragon;
+class TestParts;
+class TestFragments;
 
 /*********************************************
  * Velocity
@@ -41,6 +43,8 @@ class Velocity
     friend TestSputnik;
     friend TestStarlink;
     friend TestDragon;
+    friend TestParts;
+    friend TestFragments;
     
 
 public:
