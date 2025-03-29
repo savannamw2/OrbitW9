@@ -5,8 +5,9 @@
 //  Created by savanna on 3/27/25.
 //
 
-
+#pragma once
 #include "satellite.h"
+#include <vector>
 
 
 //class TestParts;
@@ -19,10 +20,10 @@ class Parts : public Satellite
     
 public:
    
-   Part() : Satellite() { }
-   Part(const Position& pos, const Velocity& vel);
+   Parts() : Satellite() { }
+   Parts(const Position& pos, const Velocity& vel);
 
-   virtual void destroy(std::vector<Satellite*>& satellites) override = 0;
+   virtual void destroy(std::vector<Satellite*>& satellites) {};
    
 };
 

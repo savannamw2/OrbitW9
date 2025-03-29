@@ -5,13 +5,6 @@
 //  Created by Isabel Kamphaus on 3/27/25.
 //
 
-//
-//  partStarlinkBody.h
-//  Obrit
-//
-//  Created by Isabel Kamphaus on 3/27/25.
-//
-
 #include "fragment.h"
 #include "partStarlinkBody.h"
 #include "satellite.h"

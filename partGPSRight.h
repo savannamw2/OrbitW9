@@ -18,6 +18,7 @@ class Velocity;
 
 class PartGPSRight : public Parts
 {
+public: 
 //   friend TestGPSRight;
    PartGPSRight() : Parts() {}
    PartGPSRight(const Position& pos, const Velocity& vel) : Parts(pos, vel) {this -> radius = 8;}

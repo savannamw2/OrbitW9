@@ -18,6 +18,7 @@ class Velocity;
 
 class PartGPSCenter : public Parts
 {
+public: 
 //   friend TestGPSCenter;
    PartGPSCenter() : Parts() {}
    PartGPSCenter(const Position& pos, const Velocity& vel) : Parts(pos, vel) {this -> radius = 7;}

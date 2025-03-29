@@ -8,14 +8,15 @@
  *****************************************************************************/
 
 #pragma once
-#include "position.h"
 #include "uiDraw.h"
 #include <vector>
-#include "velocity.h"
 #include "parts.h"
+#include "satellite.h"
 
-using namespace std;
+//using namespace std;
 
+class Position;
+class Velocity;
 
 class Fragment: public Parts
 {
@@ -31,13 +32,13 @@ public:
     }
     
     void move(double time) {
-        Parts::move(time);
-       age--;
-       if (age == 0) kill();
+      Parts::move(time);
+      age--;
+      if (age == 0) kill();
     }
     
-    void destroy(std::vector<Satellite*>& satellites) override { }
-    void draw(ogstream& gout);
+   void destroy(std::vector<Satellite*>& satellites) override {}
+   void draw(ogstream& gout) override;
 
 private:
     int age;
