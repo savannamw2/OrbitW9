@@ -7,6 +7,8 @@
 
 
 #include "satellite.h"
+#include <vector>
+
 
 
 class TestGPS;
@@ -20,10 +22,11 @@ public:
     // constructors
    GPS() : Satellite() {radius = 12.0;}
    GPS(const Position& pos, const Velocity& velocity, const Angle & angle, double angularVelocity,  float radius) : Satellite(pos, velocity, angle, angularVelocity, 12.0) {}
-    GPS(const Position& pos, const Velocity& velocity) : Satellite(pos, velocity) {}
+   GPS(const Position& pos, const Velocity& velocity) : Satellite(pos, velocity) {}
    GPS(const GPS& rhs);
     
    // implement satellite virtual functions
    void draw(ogstream& gout) override;
-    
+   void virtual destroy(std::vector <Satellite*>& satellites) override;
+
 };

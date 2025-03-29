@@ -22,3 +22,4 @@ void PartHubbleComputer::draw(ogstream& gout)
 {
     gout.drawHubbleComputer(pos, angle.getRadians());
 }
+

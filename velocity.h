@@ -38,13 +38,13 @@ class Velocity
    friend TestVelocity;
    friend TestSatellite;
    friend TestGPS;
-    friend TestShip;
-    friend TestHubble;
-    friend TestSputnik;
-    friend TestStarlink;
-    friend TestDragon;
-    friend TestParts;
-    friend TestFragments;
+   friend TestShip;
+   friend TestHubble;
+   friend TestSputnik;
+   friend TestStarlink;
+   friend TestDragon;
+   friend TestParts;
+   friend TestFragments;
     
 
 public:

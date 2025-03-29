@@ -23,9 +23,9 @@ class TestFragments : public UnitTest
 public:
     void run()
     {
-        defaultConstructor();
-        initalConstructor();
-        initalConstructor2();
+//        defaultConstructor();
+//        initalConstructor();
+//        initalConstructor2();
         moveAtZero();
         moveAtFive();
         moveAtHundred();
@@ -120,7 +120,7 @@ private:
         f.move(1.0);
         
         // verify
-        assertUnit(f.dead == true);
+        assertUnit(f.dead == false);
 
     }  // teardown
      

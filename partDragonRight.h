@@ -19,6 +19,7 @@ class Velocity;
 class PartDragonRight : public Parts
 {
 //   friend TestDragonRight;
+public: 
    PartDragonRight() : Parts() {}
    PartDragonRight(const Position& pos, const Velocity& vel) : Parts(pos, vel) {this -> radius = 6;}
    

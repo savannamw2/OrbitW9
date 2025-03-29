@@ -26,6 +26,8 @@ class TestHubble;
 class TestSputnik;
 class TestStarlink;
 class TestDragon;
+class TestParts;
+class TestFragments;
 
 /*********************************************
  * Position
@@ -42,6 +44,8 @@ class Position
    friend TestSputnik;
    friend TestStarlink;
    friend TestDragon;
+   friend TestParts;
+   friend TestFragments;
     
    
    // constructors

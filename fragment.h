@@ -22,8 +22,8 @@ class TestFragments;
 class Fragment: public Parts
 {
 public:
-    friend TestFragments;
-    
+   friend TestFragments;
+   
     Fragment(): Parts(), age(random(50, 100)){
         this->angularVelocity = random(0.0, .75);
     }
@@ -43,6 +43,6 @@ public:
    void destroy(std::vector<Satellite*>& satellites) override {}
    void draw(ogstream& gout) override;
 
-private:
+protected:
     int age;
 };

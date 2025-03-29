@@ -7,7 +7,8 @@
 
 
 #include "parts.h"
-
+#include <vector>
+#include "satellite.h"
 
 //class TestParts;
 class Position;
@@ -22,7 +23,6 @@ public:
     PartHubbleRight() : Parts() { }
     PartHubbleRight(const Position& pos, const Velocity& vel);
 
-   virtual void destroy(std::vector<Satellite*>& satellites) override = 0;
+   virtual void destroy(std::vector<Satellite*>& satellites) override;
     void draw(ogstream& gout) override;
 };
-

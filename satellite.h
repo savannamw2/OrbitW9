@@ -16,7 +16,8 @@
 //#include "testSatellite.h"
 
 class TestSatellite;
-
+class TestParts;
+class TestFragments;
 /****************
  * Satellite Parent Class
  ***********************/
@@ -24,6 +25,8 @@ class Satellite
 {
 public:
    friend TestSatellite;
+   friend TestParts;
+   friend TestFragments;
    
    Satellite() : pos(), velocity(), angle(), angularVelocity(0.0), dead(false), radius(0.0) {}
    Satellite(const Position& pos, const Velocity& vel, const Angle& angle, double angularVelocity, double radius);
@@ -34,16 +37,15 @@ public:
    float getRadius() {return radius;}
    bool isDead() {return dead;}
    Position& getPosition() { return pos;}
-//   void kill() {}
+   void kill() {dead  = true;}
    virtual void draw(ogstream& gout)
    {
       
    }
    
-    void kill() { dead = true; }
-   void virtual destroy(std::vector <Satellite>& satellites) {}
-    void virtual move(float time);
-//   void virtual input(Interface* ui) {}
+   void virtual input(const Interface* pUI, double time) {}
+   void virtual destroy(std::vector <Satellite*>& satellites) {};
+   void virtual move(float time);
    
 protected:
    Velocity velocity;

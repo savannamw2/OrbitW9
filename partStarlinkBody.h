@@ -6,6 +6,8 @@
 //
 
 #include "parts.h"
+#include "satellite.h"
+#include <vector>
 
 
 //class TestParts;
@@ -18,9 +20,9 @@ class  PartStarlinkBody: public Parts
     
 public:
    
-    PartStarlinkBody() : Parts() { }
-    PartStarlinkBody(const Position& pos, const Velocity& vel);
+   PartStarlinkBody() : Parts() { }
+   PartStarlinkBody(const Position& pos, const Velocity& vel) : Parts(pos, vel) { this->radius = 2; }
 
-   virtual void destroy(std::vector<Satellite*>& satellites) override = 0;
+   virtual void destroy(std::vector<Satellite*>& satellites) override;
     void draw(ogstream& gout) override;
 };

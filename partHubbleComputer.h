@@ -1,11 +1,14 @@
 //
 //  partHubbleComputer.h
-//  Obrit
+//  OrbitSimulatorW9
 //
-//  Created by Isabel Kamphaus on 3/27/25.
+//  Created by savanna on 3/27/25.
 //
 
+
 #include "parts.h"
+#include "satellite.h"
+#include <vector>
 
 
 //class TestParts;
@@ -14,6 +17,7 @@ class Velocity;
 
 class  PartHubbleComputer: public Parts
 {
+   
 //   friend TestParts;
     
 public:
@@ -21,6 +25,6 @@ public:
     PartHubbleComputer() : Parts() { }
     PartHubbleComputer(const Position& pos, const Velocity& vel);
 
-   virtual void destroy(std::vector<Satellite*>& satellites) override = 0;
+   virtual void destroy(std::vector<Satellite*>& satellites) override;
     void draw(ogstream& gout) override;
 };

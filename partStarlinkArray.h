@@ -5,14 +5,10 @@
 //  Created by Isabel Kamphaus on 3/27/25.
 //
 
-//
-//  partStarlinkBody.h
-//  Obrit
-//
-//  Created by Isabel Kamphaus on 3/27/25.
-//
 
 #include "parts.h"
+#include "satellite.h"
+#include <vector>
 
 
 //class TestParts;
@@ -28,7 +24,6 @@ public:
     PartStarlinkArray() : Parts() { }
     PartStarlinkArray(const Position& pos, const Velocity& vel);
 
-   virtual void destroy(std::vector<Satellite*>& satellites) override = 0;
+   virtual void destroy(std::vector<Satellite*>& satellites) override ;
     void draw(ogstream& gout) override;
 };
-

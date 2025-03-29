@@ -24,6 +24,8 @@
 #include "starlink.h"
 #include "dragon.h"
 #include "sputnik.h"
+#include "Star.h"
+
 #include <vector>
 using namespace std;
 
@@ -35,9 +37,14 @@ class Demo
 {
    public:
    Demo(Position ptUpperRight) :
+   
    ptUpperRight(ptUpperRight),
    tpf((24.0 * 60.0) / 30.0)
    {
+      satellites.clear();
+      
+      satellites.push_back(new Ship);
+      
       satellites.push_back(new GPS(Position(0, 26560000), Velocity(-3880, 0)));
       satellites.push_back(new GPS(Position(23001634.72, 13280000.0), Velocity(-1940.00, 3360.18)));
       satellites.push_back(new GPS(Position(23001634.72, -13280000.0), Velocity(1940.00, 3360.18)));
@@ -46,17 +53,61 @@ class Demo
       satellites.push_back(new GPS(Position(0, -26560000), Velocity(3880, 0)));
       
       satellites.push_back(new Hubble(Position(0.0, -42164000.0), Velocity(-3100, 0.0)));
+      
       satellites.push_back(new Starlink(Position(0,-13020000), Velocity(5800, 0)));
+      
       satellites.push_back(new Dragon(Position(0,8000000), Velocity(-7900, 0)));
+      
       satellites.push_back(new Sputnik(Position(-36515095.13, 21082000.0), Velocity(2050, 2684.68)));
       
-      
-      ptStar.setPixelsX(ptUpperRight.getPixelsX() * random(-0.5, 0.5));
-      ptStar.setPixelsY(ptUpperRight.getPixelsY() * random(-0.5, 0.5));
        
    }
    
-   unsigned char phaseStar;
+   
+   void collision()
+   {
+      for (auto it = satellites.begin(); it != satellites.end(); it++)
+      {
+         for (auto it2 = next(it); it2 != satellites.end(); it2++)
+         {
+            if (!(*it) -> isDead() && !(*it2) -> isDead())
+            {
+               if (abs((*it)->getPosition().getPixelsX() -
+                       (*it2)->getPosition().getPixelsX()) <= ((*it)->getRadius() +
+                       (*it2)->getRadius()) &&
+                       abs((*it)->getPosition().getPixelsY() -
+                       (*it2)->getPosition().getPixelsY()) <= ((*it)->getRadius() +
+                       (*it2)->getRadius()))
+               {
+                  (*it)->kill();
+                  (*it2)->kill();
+               }
+         
+            }
+            if (computeDistance(Position(0,0), (*it)->getPosition()) <= 6378000 ) // radius of earth
+            {
+               (*it)->kill();
+            }
+         }
+         
+      }
+      
+      vector<Satellite*> newSats;
+      for (auto it = satellites.begin(); it != satellites.end(); it++)
+      {
+         if ((*it)->isDead())
+         {
+            (*it)->destroy(newSats);
+            it = satellites.erase(it);
+         }
+         if (!(*it)->isDead())
+         {
+            newSats.push_back(*it);
+         }
+      }
+      satellites = newSats;
+   }
+   
    Position ptShip;
    Ship ship;
    double angleShip;
@@ -64,11 +115,12 @@ class Demo
    double tpf;
    Position ptUpperRight;
    Position ptStar;
+   Stars stars;
    vector<Satellite*> satellites;
     
-
-
 };
+
+
 
 /*************************************
  * All the interesting work happens here, when
@@ -83,22 +135,6 @@ void callBack(const Interface* pUI, void* p)
    // is the first step of every single callback function in OpenGL.
    Demo* pDemo = (Demo*)p;
    
-   //
-   // accept input
-   //
-   
-    //vector<Satellite()> satellites;
-    
-   // move by a little
-//   if (pUI->isUp())
-//      pDemo->ptShip.addPixelsY(1.0);
-//   if (pUI->isDown())
-//      pDemo->ptShip.addPixelsY(-1.0);
-//   if (pUI->isLeft())
-//      pDemo->ptShip.addPixelsX(-1.0);
-//   if (pUI->isRight())
-//      pDemo->ptShip.addPixelsX(1.0);
-   
    
    double secondsDay =  86400;
    double rf = -(2 * (M_PI) / 30.0) * (pDemo -> tpf * 30.0 / secondsDay);
@@ -107,61 +143,41 @@ void callBack(const Interface* pUI, void* p)
    // rotate the earth
    pDemo->angleEarth += rf;
   
-   //   pDemo->angleShip += 0.02;
-   pDemo->phaseStar++;
+   
+   for (auto it = pDemo->satellites.begin(); it != pDemo->satellites.end(); ++it)
+      {
+         Satellite *sat = *it;
+         if (!sat->isDead())
+         {
+            sat->input(pUI, pDemo-> tpf);
+            sat->move(pDemo->tpf);
+         }
+      }
+   
+   if (typeid(*(pDemo->satellites[0])) == typeid(Ship))
+      {
+         Ship* ship = dynamic_cast<Ship*>(pDemo->satellites[0]);
+         if (ship->isFiring())
+            ship->fire(pDemo->satellites);
+      }
+   
+   // collision
+   pDemo->collision();
+   
    
    // draw everything
    ogstream gout;
    
-   pDemo->ship.input(pUI, pDemo-> tpf);
-    
-    for(Satellite *sat : pDemo->satellites){
-        sat->move(pDemo -> tpf);
-    }
-    
-    pDemo->ship.draw(gout);
-    for(Satellite* sat : pDemo->satellites){
-        sat->draw(gout);
-    }
-    
-    
-   // draw satellites
-//   gout.drawCrewDragon(pDemo->ptCrewDragon, pDemo->angleShip);
-//   gout.drawHubble    (pDemo->ptHubble,     pDemo->angleShip);
-//   gout.drawSputnik   (pDemo->ptSputnik,    pDemo->angleShip);
-//   gout.drawStarlink  (pDemo->ptStarlink,   pDemo->angleShip);
-//   gout.drawShip      (pDemo->ptShip,       pDemo->angleShip, pUI->isSpace());
-//   gout.drawGPS       (pDemo->ptGPS,        pDemo->angleShip);
+   pDemo->stars.draw(gout);
    
-   // draw parts
-//   pt.setPixelsX(pDemo->ptCrewDragon.getPixelsX() + 20);
-//   pt.setPixelsY(pDemo->ptCrewDragon.getPixelsY() + 20);
-//   gout.drawCrewDragonRight(pt, pDemo->angleShip); // notice only two parameters are set
-//   pt.setPixelsX(pDemo->ptHubble.getPixelsX() + 20);
-//   pt.setPixelsY(pDemo->ptHubble.getPixelsY() + 20);
-//   gout.drawHubbleLeft(pt, pDemo->angleShip);      // notice only two parameters are set
-//   pt.setPixelsX(pDemo->ptGPS.getPixelsX() + 20);
-//   pt.setPixelsY(pDemo->ptGPS.getPixelsY() + 20);
-//   gout.drawGPSCenter(pt, pDemo->angleShip);       // notice only two parameters are set
-//   pt.setPixelsX(pDemo->ptStarlink.getPixelsX() + 20);
-//   pt.setPixelsY(pDemo->ptStarlink.getPixelsY() + 20);
-//   gout.drawStarlinkArray(pt, pDemo->angleShip);   // notice only two parameters are set
-   
-   // draw fragments
-//   pt.setPixelsX(pDemo->ptSputnik.getPixelsX() + 20);
-//   pt.setPixelsY(pDemo->ptSputnik.getPixelsY() + 20);
-//   gout.drawFragment(pt, pDemo->angleShip);
-//   pt.setPixelsX(pDemo->ptShip.getPixelsX() + 20);
-//   pt.setPixelsY(pDemo->ptShip.getPixelsY() + 20);
-//   gout.drawFragment(pt, pDemo->angleShip);
-   
-   // draw a single star
-   gout.drawStar(pDemo->ptStar, pDemo->phaseStar);
-   
-   // draw the earth
    Position pt;
    pt.setMeters(0.0, 0.0);
    gout.drawEarth(pt, pDemo->angleEarth);
+   
+    for(Satellite* sat : pDemo->satellites){
+        sat->draw(gout);
+    }
+  
 }
 
 //double Position::metersFromPixels = 40.0;
@@ -194,6 +210,8 @@ int main(int argc, char** argv)
    
    // Initialize the demo
    Demo demo(ptUpperRight);
+   demo.stars.initializeStars(500, ptUpperRight);
+
    
    // set everything into action
    ui.run(callBack, &demo);

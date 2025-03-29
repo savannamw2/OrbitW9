@@ -27,12 +27,23 @@ public:
    
    bool isThrusting();
    
-   void input(const Interface *pUI, double time);
+   void input(const Interface *pUI, double time) override;
    
-   void move(float time) override; 
+   virtual void destroy(std::vector <Satellite*>& satellites) override {}
+   
+   void move(float time) override;
+   
+   void fire(std::vector<Satellite*>& satellites);
+   void setFiring() { firing = true; }
+   bool isFiring() const { return firing; }
 
+
+
+
+   
 private:
-   bool thrust; 
+   bool thrust;
+   bool firing; 
    
    
 };

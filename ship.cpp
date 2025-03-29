@@ -8,6 +8,10 @@
 
 #include "ship.h"
 #include "uiDraw.h"
+#include "projectile.h"
+#include "uiInteract.h"
+
+
 
 
 
@@ -27,7 +31,11 @@ void Ship::input(const Interface *pUI, double time)
    {
       angle.add(-0.1);
    }
-   
+   if (pUI->isSpace())
+   {
+      setFiring();
+   }
+
    thrust = pUI -> isDown();
    move(time);
 }
@@ -35,6 +43,12 @@ void Ship::input(const Interface *pUI, double time)
 bool Ship::isThrusting()
 {
    return thrust;
+}
+
+void Ship::fire(std::vector<Satellite*>& satellites)
+{
+   satellites.push_back(new Projectile(*this));
+   firing = false;
 }
 
 
